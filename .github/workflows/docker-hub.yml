@@ -14,8 +14,12 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
+    - name: Set Version
+      id: set_version
+      run: echo "::set-output name=version::$(cat version.txt)"
+      
     - name: Build & Push Image
       run: |
         echo "${{ secrets.DOCKERPWD }}" | docker login -u "deepanshu461" --password-stdin
-        docker image build -t deepanshu461/sampleimage:1.0 .
-        docker push deepanshu461/sampleimage:1.0
+        docker image build -t deepanshu461/sampleimage:${{ steps.set_version.outputs.version }} .
+        docker push deepanshu461/sampleimage:${{ steps.set_version.outputs.version }}
