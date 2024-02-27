@@ -23,8 +23,8 @@ jobs:
     - name: Build & Push Image
       run: |
         echo "${{ secrets.DOCKERPWD }}" | docker login -u "deepanshu461" --password-stdin
-        docker image build -t ${{ env.DOCKER_TAG }} .
-        docker push ${{ env.DOCKER_TAG }}
+        docker image build -t "${{ env.DOCKER_TAG }}" .
+        docker push "${{ env.DOCKER_TAG }}"
       
     - name: Update version
       run: echo "${{ env.VERSION }}" > version.txt
